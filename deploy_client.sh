@@ -1,1 +1,2 @@
-scp -r ../code/splotbot/client/dist/* root@`splotip.sh`:/var/www/pages
+#(cd ../code/splotbot/client && grunt build)
+scp -r ../code/splotbot/client/app/* root@`splotip.sh`:/www/pages
