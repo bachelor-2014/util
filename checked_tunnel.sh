@@ -1,5 +1,10 @@
+if [[ $# -lt 2 ]] ; then
+    echo "Please provide from and to port as arguments. From is remote, to is local"
+    exit -1
+fi
+
 createTunnel() {
-    /usr/bin/ssh -l root -f -N -R 2222:localhost:22 splotbot@cstp.dk
+    /usr/bin/ssh -l root -f -N -R $1:localhost:$2 splotbot@cstp.dk
     if [[ $? -eq 0 ]]; then
         echo Tunnel created successfully
     else
@@ -7,8 +12,8 @@ createTunnel() {
     fi
 }
 ## Run the 'ls' command remotely.  If it returns non-zero, then create a new connection
-/usr/bin/ssh -p 2222 splotbot@cstp.dk ls
+/usr/bin/ssh -p $1 splotbot@cstp.dk ls
 if [[ $? -ne 0 ]]; then
     echo Creating new tunnel connection
-    createTunnel
+    createTunnel $1 $2
 fi
